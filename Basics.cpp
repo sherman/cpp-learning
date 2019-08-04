@@ -40,8 +40,8 @@ TEST(BasicsTestSuite, DiffrentPointerWithSameValue) {
     x = y;
 
     cout << ::testing::UnitTest::GetInstance()->current_test_info()->name() << endl;
-    cout << *x << endl; // 1
-    cout << *y << endl; // 1
+    cout << *x << endl; // 2
+    cout << *y << endl; // 2
 
     ASSERT_TRUE(x == y);
     ASSERT_FALSE(p == q);
@@ -72,8 +72,8 @@ TEST(BasicsTestSuite, DiffrentReferencesWithSameValue) {
     x = y;
 
     cout << ::testing::UnitTest::GetInstance()->current_test_info()->name() << endl;
-    cout << x << endl; // 1
-    cout << y << endl; // 1
+    cout << x << endl; // 2
+    cout << y << endl; // 2
 
     ASSERT_TRUE(x == y);
     ASSERT_TRUE(p == q);
