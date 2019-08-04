@@ -79,4 +79,21 @@ TEST(BasicsTestSuite, DiffrentReferencesWithSameValue) {
     ASSERT_TRUE(p == q);
 }
 
+TEST(BasicsTestSuite, Initialization) {
+int p = 1;
+int q = {1};
+auto r = q;
+auto s = 1;
+auto t = &q;
+auto& u = s;
+
+cout << ::testing::UnitTest::GetInstance()->current_test_info()->name() << endl;
+
+ASSERT_TRUE(p == q);
+ASSERT_TRUE(q == r);
+ASSERT_TRUE(r == s);
+ASSERT_TRUE(s == *t);
+ASSERT_TRUE(s == u);
+}
+
 
