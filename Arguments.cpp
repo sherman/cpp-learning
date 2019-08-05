@@ -26,3 +26,11 @@ std::vector<int> Arguments::modify(std::vector<int> &data) {
 
     return data;
 }
+
+std::vector<int> & Arguments::returnByRef(std::vector<int> &data) {
+    for (auto& elt : data) {
+        elt = -1;
+    }
+
+    return data;
+}

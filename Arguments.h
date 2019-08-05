@@ -24,6 +24,8 @@ public:
 
     std::vector<int> modify(std::vector<int> & data);
 
+    std::vector<int> & returnByRef(std::vector<int> &data);
+
 private:
     int value_;
     std::string text_;

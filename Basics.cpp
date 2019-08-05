@@ -131,6 +131,33 @@ TEST(BasicsTestSuite, ArgumentsModify) {
     for (auto elt : data) {
         ASSERT_EQ(elt, -1);
     }
+
+    ASSERT_NE(&data, &res);
+}
+
+TEST(BasicsTestSuite, ArgumentsReturnByRef) {
+    std::string text = "text";
+    std::vector<int> data = {1, 1, 1, 1, 1};
+    Arguments args(1, text);
+    vector<int>& res = args.returnByRef(data);
+    for (auto elt : res) {
+        ASSERT_EQ(elt, -1);
+    }
+
+    for (auto elt : data) {
+        ASSERT_EQ(elt, -1);
+    }
+
+    // check res vs data
+    for (auto& elt : data) {
+        elt = 2;
+    }
+
+    for (auto elt : res) {
+        ASSERT_EQ(elt, 2);
+    }
+
+    ASSERT_EQ(&data, &res);
 }
 
 
