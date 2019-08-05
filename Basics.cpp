@@ -139,7 +139,7 @@ TEST(BasicsTestSuite, ArgumentsReturnByRef) {
     std::string text = "text";
     std::vector<int> data = {1, 1, 1, 1, 1};
     Arguments args(1, text);
-    auto& res = args.returnByRef(data); // return vector<int>&
+    auto & res = args.returnByRef(data); // return vector<int>&
     for (auto elt : res) {
         ASSERT_EQ(elt, -1);
     }
@@ -149,7 +149,7 @@ TEST(BasicsTestSuite, ArgumentsReturnByRef) {
     }
 
     // check res vs data
-    for (auto& elt : data) {
+    for (auto & elt : data) {
         elt = 2;
     }
 
