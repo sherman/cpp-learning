@@ -139,7 +139,7 @@ TEST(BasicsTestSuite, ArgumentsReturnByRef) {
     std::string text = "text";
     std::vector<int> data = {1, 1, 1, 1, 1};
     Arguments args(1, text);
-    vector<int>& res = args.returnByRef(data);
+    auto& res = args.returnByRef(data); // return vector<int>&
     for (auto elt : res) {
         ASSERT_EQ(elt, -1);
     }
