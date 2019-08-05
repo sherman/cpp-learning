@@ -105,4 +105,32 @@ TEST(BasicsTestSuite, Arguments) {
     ASSERT_TRUE(args.hasText(search));
 }
 
+TEST(BasicsTestSuite, ArgumentsModifyCopy) {
+    std::string text = "text";
+    std::vector<int> data = {1, 1, 1, 1, 1};
+    Arguments args(1, text);
+    vector<int> res = args.modifyCopy(data);
+    for (auto elt : res) {
+        ASSERT_EQ(elt, -1);
+    }
+
+    for (auto elt : data) {
+        ASSERT_EQ(elt, 1);
+    }
+}
+
+TEST(BasicsTestSuite, ArgumentsModify) {
+    std::string text = "text";
+    std::vector<int> data = {1, 1, 1, 1, 1};
+    Arguments args(1, text);
+    vector<int> res = args.modify(data);
+    for (auto elt : res) {
+        ASSERT_EQ(elt, -1);
+    }
+
+    for (auto elt : data) {
+        ASSERT_EQ(elt, -1);
+    }
+}
+
 

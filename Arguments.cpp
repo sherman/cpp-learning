@@ -10,3 +10,19 @@ bool Arguments::hasText(const std::string& search) {
     std::cout << found << std::endl;
     return found != std::string::npos;
 }
+
+std::vector<int> Arguments::modifyCopy(std::vector<int> data) {
+    for (auto& elt : data) {
+        elt = -1;
+    }
+
+    return data;
+}
+
+std::vector<int> Arguments::modify(std::vector<int> &data) {
+    for (auto& elt : data) {
+        elt = -1;
+    }
+
+    return data;
+}
