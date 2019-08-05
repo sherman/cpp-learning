@@ -12,12 +12,12 @@
 
 class Arguments {
 public:
-    Arguments(int value, std::string & text) {
+    Arguments(int value, const std::string & text) {
         value_ = value;
         text_ = text;
     }
 
-    bool hasText(std::string& search);
+    bool hasText(const std::string& search);
 
 private:
     int value_;

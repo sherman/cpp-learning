@@ -5,7 +5,7 @@
 #include "Arguments.h"
 #include <iostream>
 
-bool Arguments::hasText(std::string& search) {
+bool Arguments::hasText(const std::string& search) {
     std::size_t found = text_.find(search);
     std::cout << found << std::endl;
     return found != std::string::npos;
