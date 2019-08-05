@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <gtest/gtest.h>
+#include "Arguments.h"
 
 using namespace std;
 
@@ -94,6 +95,14 @@ ASSERT_TRUE(q == r);
 ASSERT_TRUE(r == s);
 ASSERT_TRUE(s == *t);
 ASSERT_TRUE(s == u);
+}
+
+TEST(BasicsTestSuite, Arguments) {
+    std::string text = "text";
+    Arguments args(1, text);
+
+    std::string search("ex");
+    ASSERT_TRUE(args.hasText(search));
 }
 
 
