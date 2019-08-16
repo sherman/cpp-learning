@@ -5,6 +5,7 @@
 #include <iostream>
 #include <gtest/gtest.h>
 #include "Arguments.h"
+#include "MovableType.h"
 
 using namespace std;
 
@@ -81,20 +82,20 @@ TEST(BasicsTestSuite, DiffrentReferencesWithSameValue) {
 }
 
 TEST(BasicsTestSuite, Initialization) {
-int p = 1;
-int q = {1};
-auto r = q;
-auto s = 1;
-auto t = &q;
-auto& u = s;
+    int p = 1;
+    int q = {1};
+    auto r = q;
+    auto s = 1;
+    auto t = &q;
+    auto & u = s;
 
-cout << ::testing::UnitTest::GetInstance()->current_test_info()->name() << endl;
+    cout << ::testing::UnitTest::GetInstance()->current_test_info()->name() << endl;
 
-ASSERT_TRUE(p == q);
-ASSERT_TRUE(q == r);
-ASSERT_TRUE(r == s);
-ASSERT_TRUE(s == *t);
-ASSERT_TRUE(s == u);
+    ASSERT_TRUE(p == q);
+    ASSERT_TRUE(q == r);
+    ASSERT_TRUE(r == s);
+    ASSERT_TRUE(s == *t);
+    ASSERT_TRUE(s == u);
 }
 
 TEST(BasicsTestSuite, Arguments) {
@@ -158,6 +159,20 @@ TEST(BasicsTestSuite, ArgumentsReturnByRef) {
     }
 
     ASSERT_EQ(&data, &res);
+}
+
+TEST(BasicsTestSuite, MovableTypeCreate) {
+    MovableType dataContainer(3);
+
+    ASSERT_EQ(dataContainer.getData().size(), 6);
+}
+
+TEST(BasicsTestSuite, MovableTypeConstructor) {
+    MovableType dataContainer(100000);
+    MovableType another = std::move(dataContainer);
+
+    ASSERT_EQ(another.getData().size(), 200000);
+    ASSERT_EQ(dataContainer.getData().size(), 0);
 }
 
 

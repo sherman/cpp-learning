@@ -35,6 +35,6 @@ if (CMAKE_VERSION VERSION_LESS 2.8.11)
     include_directories("${gtest_SOURCE_DIR}/include")
 endif()
 
-add_executable(CppLearning Basics.cpp Arguments.cpp)
+add_executable(CppLearning Basics.cpp Arguments.cpp MovableType.cpp MovableType.h)
 target_link_libraries(CppLearning gtest_main)
 
