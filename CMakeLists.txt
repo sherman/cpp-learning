@@ -35,6 +35,12 @@ if (CMAKE_VERSION VERSION_LESS 2.8.11)
     include_directories("${gtest_SOURCE_DIR}/include")
 endif()
 
+set(BENCHMARK_ENABLE_TESTING OFF CACHE BOOL "Suppressing benchmark's tests" FORCE)
+add_subdirectory(google/benchmark)
+
 add_executable(CppLearning Basics.cpp Arguments.cpp MovableType.cpp MovableType.h)
-target_link_libraries(CppLearning gtest_main)
+target_link_libraries(${PROJECT_NAME} gtest_main)
+
+add_executable("${PROJECT_NAME}Benchmark" Arguments.cpp Benchmarks.cpp)
+target_link_libraries("${PROJECT_NAME}Benchmark" benchmark)
 
