@@ -21,7 +21,7 @@ int main() {
     }
     Arguments args(1, text);
 
-    FOR_EACH_RANGE(i, 1, 100000) {
+    FOR_EACH_RANGE(i, 1, 100) {
         vector<int> res = args.modifyCopy(data);
     }
 
