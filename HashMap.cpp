@@ -8,16 +8,21 @@
 
 HashMap::HashMap(const int size) {
     capacity_ = max(util::nextPowerOfTwo(size), MIN_SIZE);
-    data_ = new Object[capacity_];
+    data_ = static_cast<Object *>(::operator new(sizeof(Object) * capacity_));
+
     size_ = 0;
 
     for (int i = 0; i < capacity_; i++) {
-        data_[i] = EMPTY;
+        new(data_ + i) Object(EMPTY);
     }
 }
 
 HashMap::~HashMap() {
-    delete [] data_;
+    for (int i = 0; i < capacity_; i++) {
+        data_[i].~Object();
+    }
+
+    ::operator delete(data_);
 
     capacity_ = 0;
     size_ = 0;
@@ -79,8 +84,7 @@ void HashMap::set(const Object & value) {
         throw "No slot available!";
     }
 
-    //new(data_ + sizeof(Object) * target) Object(value);
-    data_[target] = value;
+    new(data_ + target) Object(value);
     size_++;
 }
 
@@ -130,7 +134,7 @@ const Object & HashMap::get(const int id) const {
 HashMap::HashMap(const HashMap & copy) {
     capacity_ = copy.capacity_;
     size_ = copy.size_;
-    data_ = new Object[capacity_];
+    data_ = static_cast<Object *>(::operator new(sizeof(Object) * capacity_));
 
     for (int i = 0; i < copy.getSize(); i++) {
         set(copy.data_[i]);
