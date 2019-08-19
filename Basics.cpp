@@ -307,5 +307,26 @@ TEST(HashMap, fill) {
     }
 }
 
+TEST(ForLoops, modernFor) {
+    int numbers[] {1, 2, 3};
 
+    vector<int> actual;
+
+    for (auto && number : numbers) {
+        actual.push_back(number);
+    }
+
+    ASSERT_EQ(actual[0], numbers[0]);
+    ASSERT_EQ(actual[1], numbers[1]);
+    ASSERT_EQ(actual[2], numbers[2]);
+
+    actual.clear();
+    for (auto number : numbers) {
+        actual.push_back(number);
+    }
+
+    ASSERT_EQ(actual[0], numbers[0]);
+    ASSERT_EQ(actual[1], numbers[1]);
+    ASSERT_EQ(actual[2], numbers[2]);
+}
 
