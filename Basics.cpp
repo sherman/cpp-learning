@@ -187,7 +187,7 @@ TEST(Utils, nextPowerOfTwo) {
     ASSERT_EQ(util::nextPowerOfTwo(4294967295), 0); // max uint
 }
 
-TEST(MewPlacement, Arrays) {
+/*TEST(MewPlacement, Arrays) {
     Object expected {10, "test"};
 
     cout << "init" << endl;
@@ -203,7 +203,7 @@ TEST(MewPlacement, Arrays) {
     ASSERT_EQ(arr[1].value, expected.value);
 
     ::operator delete(arr);
-}
+}*/
 
 class ObjectHolder {
 public:
