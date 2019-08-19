@@ -41,7 +41,7 @@ add_subdirectory(google/benchmark)
 add_executable(CppLearning Basics.cpp Arguments.cpp MovableType.cpp MovableType.h HashMap.cpp HashMap.h Utils.cpp)
 target_link_libraries(${PROJECT_NAME} gtest_main)
 
-add_executable("${PROJECT_NAME}Benchmark" Arguments.cpp Benchmarks.cpp)
+add_executable("${PROJECT_NAME}Benchmark" Arguments.cpp Benchmarks.cpp HashMap.cpp HashMap.h Utils.cpp)
 target_link_libraries("${PROJECT_NAME}Benchmark" benchmark)
 
 find_package(

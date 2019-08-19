@@ -20,18 +20,18 @@ struct Object {
     Object() = default;
 
     Object(int id, string value) : id(id), value(std::move(value)) {
-        cout << "constructor1" << endl;
+        //cout << "constructor1" << endl;
     }
 
     Object(const Object & object) {
         id = object.id;
         value = object.value;
 
-        cout << "copy constructor" << endl;
+        //cout << "copy constructor" << endl;
     }
 
     Object & operator=(const Object & other) {
-        cout << "copy operator" << endl;
+        //cout << "copy operator" << endl;
 
         if (this == &other) {
             return *this;
@@ -42,7 +42,7 @@ struct Object {
     }
 
     Object(Object && other) noexcept {
-        cout << "move constructor" << endl;
+        //cout << "move constructor" << endl;
 
         id = other.id;
         value = other.value;
@@ -52,7 +52,7 @@ struct Object {
     }
 
     Object & operator=(Object && other) {
-        cout << "move operator" << endl;
+        //cout << "move operator" << endl;
 
         if (this == &other) {
             return *this;

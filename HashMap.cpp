@@ -30,7 +30,7 @@ void HashMap::set(const Object & value) {
 
     int index = hash(value.id);
 
-    cout << index << endl;
+    //cout << index << endl;
 
     int target = -1;
     for (int i = index; i >= 0; i--) {
@@ -39,20 +39,20 @@ void HashMap::set(const Object & value) {
 
         // found empty slot
         if (curr->isEmpty()) {
-            cout << "Empty slot 1" << endl;
+            //cout << "Empty slot 1" << endl;
             target = i;
             break;
         }
 
         // a data is occupied by the same id
         if (curr->id == value.id) {
-            cout << "Occupied slot 1" << endl;
+            //cout << "Occupied slot 1" << endl;
             target = i;
             break;
         }
     }
 
-    cout << "Index:" << target << endl;
+    //cout << "Index:" << target << endl;
 
     if (target == -1 && index + 1 < capacity_) {
         for (int i = index + 1; i < capacity_; i++) {
@@ -61,14 +61,14 @@ void HashMap::set(const Object & value) {
 
             // found empty slot
             if (curr->isEmpty()) {
-                cout << "Empty slot 2" << endl;
+                //cout << "Empty slot 2" << endl;
                 target = i;
                 break;
             }
 
             // a data is occupied by the same id
             if (curr->id == value.id) {
-                cout << "Occupied slot 2" << endl;
+                //cout << "Occupied slot 2" << endl;
                 target = i;
                 break;
             }

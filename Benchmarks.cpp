@@ -4,8 +4,10 @@
 
 #include <string>
 #include <iostream>
+#include <unordered_map>
 #include "Arguments.h"
 #include <benchmark/benchmark.h>
+#include "HashMap.h"
 
 using namespace std;
 
@@ -37,7 +39,36 @@ static void modify(benchmark::State & state) {
     }
 }
 
-BENCHMARK(copy)->Iterations(1000);
-BENCHMARK(modify)->Iterations(1000);
+static void setElements(benchmark::State & state) {
+    size_t elements = state.range(0);
+    cout << "Num of elements:" << elements << endl;
+
+    HashMap map(elements);
+
+    for (auto _ : state) {
+        for (int i = 0; i < elements; i++) {
+            map.set({i, "test"});
+        }
+    }
+}
+
+static void setElementsBaseline(benchmark::State & state) {
+    size_t elements = state.range(0);
+    cout << "Num of elements:" << elements << endl;
+
+    unordered_map<int, string> map(elements);
+
+    for (auto _ : state) {
+        for (int i = 0; i < elements; i++) {
+            map[i] = "test";
+        }
+    }
+}
+
+//BENCHMARK(copy)->Iterations(1000);
+//BENCHMARK(modify)->Iterations(1000);
+
+BENCHMARK(setElements)->Arg(256)->Iterations(100000);
+BENCHMARK(setElementsBaseline)->Arg(256)->Iterations(100000);
 
 BENCHMARK_MAIN();
