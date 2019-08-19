@@ -1,3 +1,7 @@
+#include <utility>
+
+#include <utility>
+
 //
 // Created by sherman on 04.08.2019.
 //
@@ -6,6 +10,8 @@
 #include <gtest/gtest.h>
 #include "Arguments.h"
 #include "MovableType.h"
+#include "HashMap.h"
+#include "Utils.cpp"
 
 using namespace std;
 
@@ -174,5 +180,132 @@ TEST(BasicsTestSuite, MovableTypeConstructor) {
     ASSERT_EQ(another.getData().size(), 200000);
     ASSERT_EQ(dataContainer.getData().size(), 0);
 }
+
+TEST(Utils, nextPowerOfTwo) {
+    ASSERT_EQ(util::nextPowerOfTwo(15), 16);
+    ASSERT_EQ(util::nextPowerOfTwo(16), 16);
+    ASSERT_EQ(util::nextPowerOfTwo(4294967295), 0); // max uint
+}
+
+TEST(MewPlacement, Arrays) {
+    Object expected {10, "test"};
+
+    cout << "init" << endl;
+
+    Object* arr = static_cast<Object *>(::operator new(sizeof(Object) * 2));
+
+    cout << "Size:" << sizeof(arr[0]) << endl;
+
+    new(arr + sizeof(Object) * 0) Object(expected);
+    new(arr + sizeof(Object) * 1) Object(expected);
+
+    ASSERT_EQ(arr[0].value, expected.value);
+    ASSERT_EQ(arr[1].value, expected.value);
+
+    ::operator delete(arr);
+}
+
+class ObjectHolder {
+public:
+    ObjectHolder() {
+        data_ = new Object[10];
+        size = 10;
+    }
+
+    void addByRef(const int index, Object && obj) {
+        data_[index] = move(obj);
+    }
+
+    const Object & getByRef(const int index) const {
+        return data_[index];
+    }
+
+    ~ObjectHolder() {
+        delete [] data_;
+    }
+
+private:
+    Object* data_;
+    int size;
+};
+
+
+TEST(Object, init) {
+    ObjectHolder holder;
+    holder.addByRef(0, {10, "test"});
+    ASSERT_EQ(holder.getByRef(0).id, 10);
+
+    {
+        holder.addByRef(1, {11, "test11"});
+    }
+
+    ASSERT_EQ(holder.getByRef(1).id, 11);
+    ASSERT_EQ(holder.getByRef(1).value, "test11");
+
+    Object object {12, "test12"};
+    holder.addByRef(3, move(object));
+
+    ASSERT_EQ(holder.getByRef(3).id, 12);
+    ASSERT_EQ(holder.getByRef(3).value, "test12");
+
+    // wiped out
+    ASSERT_EQ(object.id, 0);
+    ASSERT_EQ(object.value, "");
+}
+
+TEST(HashMap, GetSize) {
+    HashMap map(10);
+    ASSERT_EQ(map.getSize(), 0);
+    map.set({10, "test"});
+    ASSERT_EQ(map.getSize(), 1);
+}
+
+TEST(HashMap, GetMaxSize) {
+    HashMap map(10);
+    ASSERT_EQ(map.getCapacity(), 256); // min size
+}
+
+TEST(HashMap, hash) {
+    HashMap map(10);
+    ASSERT_EQ(map.hash(2), 60);
+    ASSERT_EQ(map.hash(500), 4);
+    ASSERT_EQ(map.hash(1000), 8);
+    ASSERT_EQ(map.hash(1001), 166);
+}
+
+TEST(HashMap, set) {
+    HashMap map(10);
+    map.set({10, "test"});
+    Object expected = {10, "test"};
+    ASSERT_EQ(map.get(10).id, expected.id);
+    ASSERT_EQ(map.get(10).value, expected.value);
+    ASSERT_EQ(map.get(1).id, -1);
+
+    ASSERT_EQ(map.get(10).id, expected.id);
+    ASSERT_EQ(map.get(10).value, expected.value);
+    ASSERT_EQ(map.get(1).id, -1);
+
+    // rewrite
+    map.set({10, "rewritten"});
+    ASSERT_EQ(map.get(10).value, "rewritten");
+}
+
+TEST(HashMap, empty) {
+    HashMap map(10);
+    ASSERT_EQ(map.get(1).id, map.get(2).id);
+}
+
+TEST(HashMap, fill) {
+    HashMap map(256);
+    for (int i = 0; i < 256; i++) {
+        map.set({i, string("test").append(to_string(i))});
+    }
+
+    for (int i = 0; i < 256; i++) {
+        ASSERT_EQ(map.get(i).id, i);
+        ASSERT_EQ(map.get(i).value, string("test").append(to_string(i)));
+    }
+}
+
 
 
