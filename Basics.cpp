@@ -187,23 +187,24 @@ TEST(Utils, nextPowerOfTwo) {
     ASSERT_EQ(util::nextPowerOfTwo(4294967295), 0); // max uint
 }
 
-/*TEST(MewPlacement, Arrays) {
+TEST(MewPlacement, Arrays) {
     Object expected {10, "test"};
 
     cout << "init" << endl;
 
     Object* arr = static_cast<Object *>(::operator new(sizeof(Object) * 2));
 
-    cout << "Size:" << sizeof(arr[0]) << endl;
+    cout << "arr[0]:" << sizeof(arr[0]) << endl;
+    cout << "arr[1]:" << sizeof(arr[1]) << endl;
 
-    new(arr + sizeof(Object) * 0) Object(expected);
-    new(arr + sizeof(Object) * 1) Object(expected);
+    new(arr + 0) Object(expected);
+    new(arr + 1) Object(expected);
 
     ASSERT_EQ(arr[0].value, expected.value);
     ASSERT_EQ(arr[1].value, expected.value);
 
     ::operator delete(arr);
-}*/
+}
 
 class ObjectHolder {
 public:
