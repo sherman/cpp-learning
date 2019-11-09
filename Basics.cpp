@@ -339,7 +339,7 @@ TEST(Threads, promise) {
     th.join();
 }
 
-TEST(Threads, blockings) {
+TEST(Threads, blocking) {
     std::promise<int> promise;
     std::future<int> future = promise.get_future();
     std::thread th(threads::blocking, &promise);
