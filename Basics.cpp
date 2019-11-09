@@ -1,17 +1,17 @@
-#include <utility>
-
-#include <utility>
 
 //
 // Created by sherman on 04.08.2019.
 //
+#include <utility>
 #include <string>
 #include <iostream>
 #include <gtest/gtest.h>
+#include <future>
 #include "Arguments.h"
 #include "MovableType.h"
 #include "HashMap.h"
 #include "Utils.cpp"
+#include "Threads.cpp"
 
 using namespace std;
 
@@ -331,3 +331,18 @@ TEST(ForLoops, modernFor) {
     ASSERT_EQ(actual[2], numbers[2]);
 }
 
+TEST(Threads, promise) {
+    std::promise<int> promise;
+    std::future<int> future = promise.get_future();
+    std::thread th(threads::initializer, &promise);
+    ASSERT_EQ(future.get(), 42);
+    th.join();
+}
+
+TEST(Threads, blockings) {
+    std::promise<int> promise;
+    std::future<int> future = promise.get_future();
+    std::thread th(threads::blocking, &promise);
+    ASSERT_EQ(future.get(), 42);
+    th.join();
+}
