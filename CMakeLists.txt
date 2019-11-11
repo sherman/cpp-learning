@@ -58,14 +58,14 @@ if (Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
 endif()
 
-find_package(folly CONFIG REQUIRED)
+#find_package(folly CONFIG REQUIRED)
 
-if (folly_FOUND)
-    message(STATUS "folly_INCLUDE_DIRS: ${FOLLY_INCLUDE_DIR}")
-    message(STATUS "folly_LIBRARIES: ${FOLLY_LIBRARIES}")
-
-    include_directories(${FOLLY_INCLUDE_DIR})
-endif()
+#if (folly_FOUND)
+#    message(STATUS "folly_INCLUDE_DIRS: ${FOLLY_INCLUDE_DIR}")
+#    message(STATUS "folly_LIBRARIES: ${FOLLY_LIBRARIES}")
+#
+#    include_directories(${FOLLY_INCLUDE_DIR})
+#endif()
 
 #find_library(BENCHMARK follybenchmark PATHS)
 
