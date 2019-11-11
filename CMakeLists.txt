@@ -38,7 +38,7 @@ endif()
 set(BENCHMARK_ENABLE_TESTING OFF CACHE BOOL "Suppressing benchmark's tests" FORCE)
 add_subdirectory(google/benchmark)
 
-add_executable(CppLearning Basics.cpp Arguments.cpp MovableType.cpp MovableType.h HashMap.cpp HashMap.h Utils.cpp Threads.cpp)
+add_executable(CppLearning Basics.cpp Arguments.cpp MovableType.cpp MovableType.h HashMap.cpp HashMap.h Utils.cpp Threads.cpp FollyAdvanced.cpp)
 target_link_libraries(${PROJECT_NAME} gtest_main)
 
 add_executable("${PROJECT_NAME}Benchmark" Arguments.cpp Benchmarks.cpp HashMap.cpp HashMap.h Utils.cpp)
@@ -69,6 +69,8 @@ endif()
 
 #find_library(BENCHMARK follybenchmark PATHS)
 
-add_executable("${PROJECT_NAME}FollyBasics" Arguments.cpp FollyBasics.cpp)
-target_link_libraries("${PROJECT_NAME}FollyBasics" ${Boost_LIBRARIES} ${FOLLY_LIBRARIES})
+#add_executable("${PROJECT_NAME}FollyBasics" Arguments.cpp FollyBasics.cpp)
+#target_link_libraries("${PROJECT_NAME}FollyBasics" ${Boost_LIBRARIES} ${FOLLY_LIBRARIES})
 
+#add_executable("${PROJECT_NAME}FollyAdvanced" FollyAdvanced.cpp)
+#target_link_libraries("${PROJECT_NAME}FollyAdvanced" ${Boost_LIBRARIES} ${FOLLY_LIBRARIES})
