@@ -5,6 +5,7 @@
 #include <utility>
 #include <string>
 #include <iostream>
+#include <chrono>
 #include <gtest/gtest.h>
 #include <future>
 #include "Arguments.h"
@@ -188,11 +189,11 @@ TEST(Utils, nextPowerOfTwo) {
 }
 
 TEST(MewPlacement, Arrays) {
-    Object expected {10, "test"};
+    Object expected{10, "test"};
 
     cout << "init" << endl;
 
-    Object* arr = static_cast<Object *>(::operator new(sizeof(Object) * 2));
+    Object *arr = static_cast<Object *>(::operator new(sizeof(Object) * 2));
 
     cout << "arr[0]:" << sizeof(arr[0]) << endl;
     cout << "arr[1]:" << sizeof(arr[1]) << endl;
@@ -222,11 +223,11 @@ public:
     }
 
     ~ObjectHolder() {
-        delete [] data_;
+        delete[] data_;
     }
 
 private:
-    Object* data_;
+    Object *data_;
     int size;
 };
 
@@ -243,7 +244,7 @@ TEST(Object, init) {
     ASSERT_EQ(holder.getByRef(1).id, 11);
     ASSERT_EQ(holder.getByRef(1).value, "test11");
 
-    Object object {12, "test12"};
+    Object object{12, "test12"};
     holder.addByRef(3, move(object));
 
     ASSERT_EQ(holder.getByRef(3).id, 12);
@@ -309,7 +310,7 @@ TEST(HashMap, fill) {
 }
 
 TEST(ForLoops, modernFor) {
-    int numbers[] {1, 2, 3};
+    int numbers[]{1, 2, 3};
 
     vector<int> actual;
 
@@ -334,15 +335,20 @@ TEST(ForLoops, modernFor) {
 TEST(Threads, promise) {
     std::promise<int> promise;
     std::future<int> future = promise.get_future();
-    std::thread th(threads::initializer, &promise);
+    std::thread thread(threads::initializer, &promise);
     ASSERT_EQ(future.get(), 42);
-    th.join();
+    thread.join();
 }
 
 TEST(Threads, blocking) {
     std::promise<int> promise;
     std::future<int> future = promise.get_future();
-    std::thread th(threads::blocking, &promise);
+    std::thread thread(threads::blocking, &promise);
     ASSERT_EQ(future.get(), 42);
-    th.join();
+    thread.join();
+}
+
+TEST(Threads, runInBackground) {
+    std::thread thread([]() { std::this_thread::sleep_for(10s); });
+    thread.detach();
 }
