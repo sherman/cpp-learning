@@ -13,6 +13,7 @@
 #include "HashMap.h"
 #include "Utils.cpp"
 #include "Threads.cpp"
+#include "Service.h"
 
 using namespace std;
 
@@ -351,4 +352,10 @@ TEST(Threads, blocking) {
 TEST(Threads, runInBackground) {
     std::thread thread([]() { std::this_thread::sleep_for(10s); });
     thread.detach();
+}
+
+TEST(Services, instance) {
+    std::string str("test");
+    HeartbeatImpl impl;
+    impl.getService()->heartbeat(str);
 }

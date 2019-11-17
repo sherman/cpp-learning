@@ -2,8 +2,7 @@
 // Created by sherman on 05.08.2019.
 //
 
-#ifndef CPPLEARNING_ARGUMENTS_H
-#define CPPLEARNING_ARGUMENTS_H
+#pragma once
 
 
 #include <string>
@@ -31,5 +30,3 @@ private:
     std::string text_;
 };
 
-
-#endif //CPPLEARNING_ARGUMENTS_H

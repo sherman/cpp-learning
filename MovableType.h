@@ -2,8 +2,7 @@
 // Created by sherman on 16.08.19.
 //
 
-#ifndef CPPLEARNING_MOVABLETYPE_H
-#define CPPLEARNING_MOVABLETYPE_H
+#pragma once
 
 #include <string>
 #include <vector>
@@ -28,5 +27,3 @@ private:
     std::vector<int> data;
 };
 
-
-#endif //CPPLEARNING_MOVABLETYPE_H

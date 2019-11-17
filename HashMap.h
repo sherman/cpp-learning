@@ -4,9 +4,6 @@
 // Created by sherman on 18.08.19.
 //
 
-#ifndef CPPLEARNING_HASHMAP_H
-#define CPPLEARNING_HASHMAP_H
-
 #include <ostream>
 #include <initializer_list>
 #include <iostream>
@@ -110,5 +107,3 @@ private:
     void resize();
 };
 
-
-#endif //CPPLEARNING_HASHMAP_H
