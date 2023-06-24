@@ -33,7 +33,7 @@ public:
 };
 
 class HeartbeatImpl : public Heartbeat::Service, public ServiceBase<HeartbeatImpl> {
-    virtual void heartbeat(std::string& message);
+    void heartbeat(std::string& message) override;
 };
 
 
