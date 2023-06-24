@@ -19,11 +19,11 @@ public:
 
     bool hasText(const std::string & search);
 
-    std::vector<int> modifyCopy(std::vector<int> data);
+    static std::vector<int> modifyCopy(std::vector<int> data);
 
-    std::vector<int> modify(std::vector<int> & data);
+    static std::vector<int> modify(std::vector<int> & data);
 
-    std::vector<int> & returnByRef(std::vector<int> & data);
+    static std::vector<int> & returnByRef(std::vector<int> & data);
 
 private:
     int value_;

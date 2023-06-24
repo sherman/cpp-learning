@@ -20,14 +20,14 @@ struct Object {
         //cout << "constructor1" << endl;
     }
 
-    Object(const Object & object) {
+    Object(const Object &object) {
         id = object.id;
         value = object.value;
 
         //cout << "copy constructor" << endl;
     }
 
-    Object & operator=(const Object & other) {
+    Object &operator=(const Object &other) {
         //cout << "copy operator" << endl;
 
         if (this == &other) {
@@ -36,9 +36,11 @@ struct Object {
 
         id = other.id;
         value = other.value;
+
+        return *this;
     }
 
-    Object(Object && other) noexcept {
+    Object(Object &&other) noexcept {
         //cout << "move constructor" << endl;
 
         id = other.id;
@@ -48,7 +50,7 @@ struct Object {
         other.value.clear();
     }
 
-    Object & operator=(Object && other) {
+    Object &operator=(Object &&other)  noexcept {
         //cout << "move operator" << endl;
 
         if (this == &other) {
@@ -78,25 +80,27 @@ class HashMap {
 public:
     HashMap() = delete;
 
-    HashMap(const int size);
+    explicit HashMap(int size);
 
     // Rules of three
-    HashMap(const HashMap & copy);
-    HashMap& operator=(const HashMap & copy);
+    HashMap(const HashMap &copy);
+
+    HashMap &operator=(const HashMap &copy);
+
     ~HashMap();
 
-    void set(const Object & value);
+    void set(const Object &value);
 
-    const Object & get(const int id) const;
+    const Object &get(int id) const;
 
     int getSize() const;
 
     int getCapacity() const;
 
-    unsigned int hash(const unsigned int value) const;
+    unsigned int hash(unsigned int value) const;
 
 private:
-    const int MAGIC = 0x9E3779B9;
+    const int MAGIC = static_cast<int>(0x9E3779B9);
     const unsigned int MIN_SIZE = 1 << 8;
     const Object EMPTY{-1, ""};
 

@@ -13,20 +13,7 @@ using namespace std;
 
 static int MAX_ELTS = 1000000;
 
-static void copy(benchmark::State & state) {
-    std::string text = "text";
-    std::vector<int> data(MAX_ELTS);
-    for (int i = 0; i < MAX_ELTS; i++) {
-         data.push_back(i);
-    }
-    Arguments args(1, text);
-
-    for (auto _ : state) {
-        vector<int> res = args.modifyCopy(data);
-    }
-}
-
-static void modify(benchmark::State & state) {
+static void copy(benchmark::State &state) {
     std::string text = "text";
     std::vector<int> data(MAX_ELTS);
     for (int i = 0; i < MAX_ELTS; i++) {
@@ -34,31 +21,44 @@ static void modify(benchmark::State & state) {
     }
     Arguments args(1, text);
 
-    for (auto _ : state) {
-        vector<int> res = args.modify(data);
+    for (auto _: state) {
+        vector<int> res = Arguments::modifyCopy(data);
     }
 }
 
-static void setElements(benchmark::State & state) {
-    size_t elements = state.range(0);
+static void modify(benchmark::State &state) {
+    auto text = "text";
+    std::vector<int> data(MAX_ELTS);
+    for (int i = 0; i < MAX_ELTS; i++) {
+        data.push_back(i);
+    }
+    Arguments args(1, text);
+
+    for (auto _: state) {
+        vector<int> res = Arguments::modify(data);
+    }
+}
+
+static void setElements(benchmark::State &state) {
+    auto elements = state.range(0);
     cout << "Num of elements:" << elements << endl;
 
-    HashMap map(elements);
+    HashMap map(static_cast<int>(elements));
 
-    for (auto _ : state) {
+    for (auto _: state) {
         for (int i = 0; i < elements; i++) {
             map.set({i, "test"});
         }
     }
 }
 
-static void setElementsBaseline(benchmark::State & state) {
+static void setElementsBaseline(benchmark::State &state) {
     size_t elements = state.range(0);
     cout << "Num of elements:" << elements << endl;
 
     unordered_map<int, string> map(elements);
 
-    for (auto _ : state) {
+    for (auto _: state) {
         for (int i = 0; i < elements; i++) {
             map[i] = "test";
         }

@@ -28,7 +28,7 @@ HashMap::~HashMap() {
     size_ = 0;
 }
 
-void HashMap::set(const Object & value) {
+void HashMap::set(const Object &value) {
     if (capacity_ == getSize()) {
         resize();
     }
@@ -104,7 +104,7 @@ unsigned int HashMap::hash(const unsigned int value) const {
     return ((value ^ (value >> 16)) * MAGIC) >> 24;
 }
 
-const Object & HashMap::get(const int id) const {
+const Object &HashMap::get(const int id) const {
     //cout <<"Getting " << id << endl;
 
     int index = hash(id);
@@ -131,7 +131,7 @@ const Object & HashMap::get(const int id) const {
     return EMPTY;
 }
 
-HashMap::HashMap(const HashMap & copy) {
+HashMap::HashMap(const HashMap &copy) {
     capacity_ = copy.capacity_;
     size_ = copy.size_;
     data_ = static_cast<Object *>(::operator new(sizeof(Object) * capacity_));
@@ -141,6 +141,6 @@ HashMap::HashMap(const HashMap & copy) {
     }
 }
 
-HashMap & HashMap::operator=(const HashMap & copy) {
+HashMap &HashMap::operator=(const HashMap &copy) {
     throw "Implement me!";
 }

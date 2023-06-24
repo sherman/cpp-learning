@@ -118,7 +118,7 @@ TEST(BasicsTestSuite, ArgumentsModifyCopy) {
     std::string text = "text";
     std::vector<int> data = {1, 1, 1, 1, 1};
     Arguments args(1, text);
-    vector<int> res = args.modifyCopy(data);
+    vector<int> res = Arguments::modifyCopy(data);
     for (auto elt : res) {
         ASSERT_EQ(elt, -1);
     }
@@ -132,7 +132,7 @@ TEST(BasicsTestSuite, ArgumentsModify) {
     std::string text = "text";
     std::vector<int> data = {1, 1, 1, 1, 1};
     Arguments args(1, text);
-    vector<int> res = args.modify(data);
+    vector<int> res = Arguments::modify(data);
     for (auto elt : res) {
         ASSERT_EQ(elt, -1);
     }
@@ -148,7 +148,7 @@ TEST(BasicsTestSuite, ArgumentsReturnByRef) {
     std::string text = "text";
     std::vector<int> data = {1, 1, 1, 1, 1};
     Arguments args(1, text);
-    auto & res = args.returnByRef(data); // return vector<int>&
+    auto & res = Arguments::returnByRef(data); // return vector<int>&
     for (auto elt : res) {
         ASSERT_EQ(elt, -1);
     }
@@ -194,7 +194,7 @@ TEST(MewPlacement, Arrays) {
 
     cout << "init" << endl;
 
-    Object *arr = static_cast<Object *>(::operator new(sizeof(Object) * 2));
+    auto *arr = static_cast<Object *>(::operator new(sizeof(Object) * 2));
 
     cout << "arr[0]:" << sizeof(arr[0]) << endl;
     cout << "arr[1]:" << sizeof(arr[1]) << endl;
@@ -216,7 +216,7 @@ public:
     }
 
     void addByRef(const int index, Object && obj) {
-        data_[index] = move(obj);
+        data_[index] = std::move(obj);
     }
 
     const Object & getByRef(const int index) const {
@@ -246,7 +246,7 @@ TEST(Object, init) {
     ASSERT_EQ(holder.getByRef(1).value, "test11");
 
     Object object{12, "test12"};
-    holder.addByRef(3, move(object));
+    holder.addByRef(3, std::move(object));
 
     ASSERT_EQ(holder.getByRef(3).id, 12);
     ASSERT_EQ(holder.getByRef(3).value, "test12");
